@@ -1,6 +1,7 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { createAuthLoginValidator, createAuthRegisterValidator } from '#validators/auth'
 import User from '#models/user'
+import Role from '#models/role'
 
 export default class AuthController {
   public async login({ request, response, auth }: HttpContext) {
@@ -21,9 +22,12 @@ export default class AuthController {
     const data = await request.validateUsing(createAuthRegisterValidator)
     const user = await User.create(data)
 
-    await user.load('role')
+    // set user role
+    const role = await Role.query().where('slug', 'user').firstOrFail()
+    await user.related('role').associate(role)
     await auth.use('web').login(user)
 
+    await user.load('role')
     return response.created(user)
   }
 
