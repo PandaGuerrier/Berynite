@@ -9,12 +9,20 @@
 
 import router from '@adonisjs/core/services/router'
 import AuthController from '#controllers/users/auth_controller'
+import CommonsController from '#controllers/common/commons_controller'
+import { middleware } from '#start/kernel'
 
 router.group(() => {
-  router.post('/login', [AuthController, 'login'])
-  router.post('/register', [AuthController, 'register'])
+  router.group(() => {
+    router.get('/login', [AuthController, 'loginView']).as('auth.login')
+    router.post('/login', [AuthController, 'login'])
+    router.post('/register', [AuthController, 'register'])
+
+  }).middleware(middleware.guest())
+
+  router.get('/logout', [AuthController, 'logout']).middleware(middleware.auth())
 }).prefix('auth')
 
-router.on('/').renderInertia('Home')
+router.get('/', [CommonsController, 'index'])
 
 

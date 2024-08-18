@@ -1,12 +1,15 @@
 import usePageProps from './use_page_props'
-// @ts-ignore
-import { SessionLucidUserProvider } from '@adonisjs/auth/build/modules/session_guard/user_providers/lucid'
 import User from '#models/user'
+import Role from '#models/role'
 
 export default function useAuth() {
   const props = usePageProps<{
-    user: User
+    auth: {
+      user: User | null,
+      isAuthenticated: boolean,
+      role: Role | null,
+    }
   }>()
 
-  return props.user
+  return props.auth
 }
