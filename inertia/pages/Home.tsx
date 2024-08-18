@@ -1,14 +1,13 @@
 import { AuroraBackground } from '~/components/ui/aurora-background'
 import { motion } from 'framer-motion'
 import { Head } from '@inertiajs/react'
+import MainLayout from '~/layouts/MainLayout'
 
 export default function Home() {
-
-  document.documentElement.classList.add('dark')
   return (
-    <>
-      <AuroraBackground className={"mt-[-65px]"}>
-        <Head title={'Berynite'}/>
+    <MainLayout>
+      <AuroraBackground>
+        <Head title={'Accueil'}/>
         <motion.div
           initial={{opacity: 0.0, y: 40}}
           whileInView={{opacity: 1, y: 0}}
@@ -27,6 +26,6 @@ export default function Home() {
           </div>
         </motion.div>
       </AuroraBackground>
-    </>
+    </MainLayout>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Avatar,
+  Avatar, Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -14,18 +14,18 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle
 } from '@nextui-org/react'
-import AuthModal from '~/components/auth/AuthModal'
 import useAuth from '~/hooks/use_auth'
 
 export default function NavBar() {
-  const user = useAuth()
+  const auth = useAuth()
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [linkEnable, setLinkEnabled] = React.useState(0)
 
+  console.log(auth)
   const links = [
     {
       name: "Home",
-      link: "#",
+      link: "/",
     },
     {
       name: "About me",
@@ -42,7 +42,7 @@ export default function NavBar() {
   ]
 
   async function signOut() {
-
+    window.location.href = "/auth/logout"
   }
 
   function redirect(url: string)  {
@@ -73,7 +73,7 @@ export default function NavBar() {
         }
       </NavbarContent>
       <NavbarContent justify="end">
-        {user.isConnected ?
+        {auth.isAuthenticated ?
           <>
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
@@ -82,29 +82,37 @@ export default function NavBar() {
                   as="button"
                   className="transition-transform"
                   color="primary"
+                  title={auth.user!.email}
                   size="sm"
                 />
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="faded">
                 <DropdownItem key="profile" className="h-14 gap-2">
                   <p className="font-semibold">Connected as </p>
-                  <p className="font-semibold">{user.email}</p>
+                  <p className="font-semibold">{auth.user!.email}</p>
                 </DropdownItem>
                 <DropdownItem key="settings">Settings</DropdownItem>
                 {
-                  user.role === 'admin' ?
+                  auth.role!.slug === 'admin' ?
                     <DropdownItem onClick={() => redirect("/dashboard")} key="dashboard">Dashboard</DropdownItem>
-                    :
-                    <DropdownItem key="d" className={"hidden"}>Dashboard</DropdownItem>
+                    : <></>
                 }
+                <DropdownItem onClick={() => redirect("/suggests/me")}>Mes suggestions</DropdownItem>
                 <DropdownItem key="logout" color="danger" onClick={signOut}>
-                  Logout
+                  Déconnexion
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
           </> :
           <>
-            <AuthModal selectedStr="login" />
+            <NavbarItem className="hidden lg:flex">
+              <Link href="/auth/login">Connexion</Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Button as={Link} color="primary" href="/auth/register" variant="flat">
+                Inscription
+              </Button>
+            </NavbarItem>
           </>
         }
 

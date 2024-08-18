@@ -7,7 +7,7 @@ interface InputProps {
   type: string,
   name: string,
   value?: string,
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
   error?: string,
   className?: string
 }
@@ -17,7 +17,7 @@ export default function InputPanda({ label, required, type, name, value, onChang
        <Input
           label={label}
           radius={"full"}
-          variant={"bordered"}
+          variant={"underlined"}
           required={required}
           type={type}
           name={name}

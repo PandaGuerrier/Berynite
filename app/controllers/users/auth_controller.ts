@@ -4,6 +4,10 @@ import User from '#models/user'
 import Role from '#models/role'
 
 export default class AuthController {
+  public async loginView({ inertia }: HttpContext) {
+    return inertia.render('auth/Login')
+  }
+
   public async login({ request, response, auth }: HttpContext) {
     const data = await request.validateUsing(createAuthLoginValidator)
     const user = await User.verifyCredentials(data.email, data.password)
@@ -30,7 +34,8 @@ export default class AuthController {
     return response.created(user)
   }
 
-  public async logout({ auth }: HttpContext) {
+  public async logout({ auth, response }: HttpContext) {
     await auth.use('web').logout()
+    return response.redirect().toRoute('auth.login')
   }
 }

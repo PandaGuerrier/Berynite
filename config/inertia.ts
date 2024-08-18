@@ -11,6 +11,19 @@ export default defineConfig({
    */
   sharedData: {
     errors: (ctx) => ctx.session?.flashMessages.get('errors'),
+    auth: async (ctx) => {
+      const guard = ctx.auth.use('web')
+
+      if (guard.user) {
+        await guard.user.load('role')
+      }
+
+      return {
+        user: guard.user,
+        isAuthenticated: guard.isAuthenticated,
+        role: guard.user?.role
+      }
+    }
   },
 
   /**
