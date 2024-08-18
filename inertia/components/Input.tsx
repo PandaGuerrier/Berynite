@@ -12,7 +12,7 @@ interface InputProps {
   className?: string
 }
 
-export default function InputFD({ label, required, type, name, value, onChange, error, className }: InputProps) {
+export default function InputPanda({ label, required, type, name, value, onChange, error, className }: InputProps) {
   return (
        <Input
           label={label}

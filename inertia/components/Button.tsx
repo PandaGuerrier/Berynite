@@ -7,7 +7,7 @@ interface ButtonProps {
   className?: string
 }
 
-export default function ButtonFD({ name, type, disabled, className }: ButtonProps) {
+export default function ButtonPanda({ name, type, disabled, className }: ButtonProps) {
   return (
       <Button
         variant={"solid"}
