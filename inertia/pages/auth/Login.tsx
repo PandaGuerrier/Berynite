@@ -3,7 +3,7 @@ import MainLayout from '~/layouts/MainLayout'
 import User from '#models/user'
 import DeezerButton from '~/components/DeezerButton'
 
-export default function SpotifySuccess({ user }:  { user: User }) {
+export default function Login({ user }:  { user: User }) {
   function onPress() {
     window.location.href = '/auth/deezer/redirect'
   }

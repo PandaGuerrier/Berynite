@@ -22,7 +22,6 @@ export default class AuthController {
     const data = await request.validateUsing(createAuthRegisterValidator)
     const user = await User.create(data)
 
-    // set user role
     const role = await Role.query().where('slug', 'user').firstOrFail()
     await user.related('role').associate(role)
     await auth.use('web').login(user)
