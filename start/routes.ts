@@ -15,6 +15,7 @@ import { middleware } from '#start/kernel'
 router.group(() => {
   router.group(() => {
     router.get('/login', [AuthController, 'loginView']).as('auth.login')
+    router.get('/register', [AuthController, 'registerView']).as('auth.register')
     router.post('/login', [AuthController, 'login'])
     router.post('/register', [AuthController, 'register'])
 

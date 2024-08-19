@@ -2,6 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column } from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import User from '#models/user'
+import { Voter } from '../type/voter.js'
 
 export default class Poll extends BaseModel {
   @column({ isPrimary: true })
@@ -22,7 +23,8 @@ export default class Poll extends BaseModel {
   @column()
   declare status: 'finished' | 'draft' | 'published'
 
-
+  @column()
+  declare voters: Voter[]
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

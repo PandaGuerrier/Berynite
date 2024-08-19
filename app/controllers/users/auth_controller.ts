@@ -8,6 +8,10 @@ export default class AuthController {
     return inertia.render('auth/Login')
   }
 
+  public async registerView({ inertia }: HttpContext) {
+    return inertia.render('auth/Register')
+  }
+
   public async login({ request, response, auth }: HttpContext) {
     const data = await request.validateUsing(createAuthLoginValidator)
     const user = await User.verifyCredentials(data.email, data.password)

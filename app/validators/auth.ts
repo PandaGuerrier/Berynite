@@ -1,14 +1,5 @@
-import vine, { SimpleMessagesProvider } from '@vinejs/vine'
+import vine from '@vinejs/vine'
 import User from '#models/user'
-
-const messageProvider = new SimpleMessagesProvider({
-  'required': 'Le champ est requis.',
-  'email': 'Le champ doit être une adresse email valide.',
-  'minLength': 'Le champ doit contenir au moins 5 caractères.',
-  'confirmed': 'Les champs ne correspondent pas.',
-})
-
-vine.messagesProvider = messageProvider
 
 export const createAuthRegisterValidator = vine.compile(
   vine.object({

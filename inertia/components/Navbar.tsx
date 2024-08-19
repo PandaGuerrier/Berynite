@@ -93,11 +93,11 @@ export default function NavBar() {
                 </DropdownItem>
                 <DropdownItem key="settings">Settings</DropdownItem>
                 {
-                  auth.role!.slug === 'admin' ?
+                  auth.role?.slug === 'admin' ?
                     <DropdownItem onClick={() => redirect("/dashboard")} key="dashboard">Dashboard</DropdownItem>
-                    : <></>
+                    : <DropdownItem className={"hidden"}>test</DropdownItem>
                 }
-                <DropdownItem onClick={() => redirect("/suggests/me")}>Mes suggestions</DropdownItem>
+                <DropdownItem key="suggests" onClick={() => redirect("/suggests/me")}>Mes suggestions</DropdownItem>
                 <DropdownItem key="logout" color="danger" onClick={signOut}>
                   Déconnexion
                 </DropdownItem>
