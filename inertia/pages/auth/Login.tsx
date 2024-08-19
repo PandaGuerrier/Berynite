@@ -1,7 +1,5 @@
 import { Head } from '@inertiajs/react'
 import MainLayout from '~/layouts/MainLayout'
-import { AuroraBackground } from '~/components/ui/aurora-background'
-import { motion } from 'framer-motion'
 import InputPanda from '~/components/Input'
 import { Button } from '@nextui-org/react'
 import { useState } from 'react'
@@ -46,18 +44,9 @@ export default function Login() {
 
   return (
     <MainLayout>
-      <AuroraBackground>
+      <div className={"flex w-full h-[100vh] justify-center"}>
         <Head title={'Connexion'}/>
-        <motion.div
-          initial={{opacity: 0.0, y: 40}}
-          whileInView={{opacity: 1, y: 0}}
-          transition={{
-            delay: 0.3,
-            duration: 0.8,
-            ease: 'easeInOut'
-          }}
-          className="relative flex flex-col gap-4 items-center justify-center px-4 text-white w-full"
-        >
+        <div className="relative flex flex-col gap-4 items-center justify-center px-4 text-white w-full">
           <div className="w-full flex justify-center">
             <form onSubmit={sendForm} className={"p-3 w-full md:w-1/4"}>
               <div className="flex flex-col gap-4 min-w-24">
@@ -76,8 +65,8 @@ export default function Login() {
               </div>
             </form>
           </div>
-        </motion.div>
-      </AuroraBackground>
+        </div>
+      </div>
     </MainLayout>
   )
 }

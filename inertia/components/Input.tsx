@@ -22,6 +22,7 @@ export default function InputPanda({ label, required, type, name, value, onChang
         required={required}
         type={type}
         name={name}
+        fullWidth
         value={value}
         onChange={onChange}
         color={error ? "danger" : "primary"}

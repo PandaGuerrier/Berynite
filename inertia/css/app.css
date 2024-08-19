@@ -28,3 +28,18 @@ html, body {
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
+
+.element {
+  animation: slide 3s linear infinite;
+  background-repeat: repeat-x;
+}
+
+
+@keyframes slide {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}

@@ -15,10 +15,7 @@ createInertiaApp({
       import.meta.glob('../pages/**/*.tsx'),
     )
   },
-
   setup({ el, App, props }) {
-
     createRoot(el).render(<App {...props} />);
-
   },
 });

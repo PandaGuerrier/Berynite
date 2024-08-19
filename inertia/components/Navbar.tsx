@@ -5,7 +5,6 @@ import {
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Link,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -14,6 +13,8 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle
 } from '@nextui-org/react'
+import { Link } from '@inertiajs/react'
+
 import useAuth from '~/hooks/use_auth'
 
 export default function NavBar() {
@@ -126,7 +127,6 @@ export default function NavBar() {
               }
               className="w-full"
               href={item.link}
-              size="lg"
               onClick={() => setLinkEnabled(index)}
             >
               {item.name}
