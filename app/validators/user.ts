@@ -3,11 +3,11 @@ import User from '#models/user'
 
 export const createUserValidator = vine.compile(
   vine.object({
-    email: vine.string().email().unique(async (_, value) => {
-      const user = await User.findBy('email', value)
+    email: vine.string().email().optional(),
+    password: vine.string().minLength(5).confirmed({ confirmationField: 'repeat_password'}).optional(),
+    username: vine.string().minLength(5).unique(async (_, value) => {
+      const user = await User.findBy('username', value)
       return !user
-    }).nullable(),
-    password: vine.string().minLength(5).confirmed({ confirmationField: 'repeat_password'}).nullable(),
-    username: vine.string().minLength(3).nullable()
+    }).optional()
   })
 )

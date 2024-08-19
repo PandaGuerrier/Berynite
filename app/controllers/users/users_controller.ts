@@ -4,10 +4,9 @@ import { createUserValidator } from '#validators/user'
 export default class UsersController {
   public async update({ request, response, auth }: HttpContext) {
     const data = await request.validateUsing(createUserValidator)
+    const user = auth.use('web').user!
 
-    const user = auth.user!
-    user.merge(data)
-    await user.save()
+    await user.merge(data).save()
 
     return response.created(user)
   }

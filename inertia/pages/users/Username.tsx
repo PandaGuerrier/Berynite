@@ -14,7 +14,7 @@ export default function Username() {
     e.preventDefault()
     const form = e.currentTarget
     const formData = new FormData(form)
-    const response = await fetch('/user/', {
+    const response = await fetch('/me', {
       method: 'PATCH',
       body: formData,
       headers: {
@@ -24,6 +24,7 @@ export default function Username() {
     })
 
     const payload = await response.json()
+    console.log(payload)
 
     if (response.ok) {
       const username = payload.username ?? 'Invité'

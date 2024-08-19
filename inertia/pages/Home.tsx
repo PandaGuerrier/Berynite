@@ -1,12 +1,13 @@
 import { motion } from 'framer-motion'
 import { Head } from '@inertiajs/react'
 import MainLayout from '~/layouts/MainLayout'
+import useAuth from '~/hooks/use_auth'
 
 export default function Home() {
+  const auth = useAuth()
   return (
     <MainLayout>
       <div className={"flex w-full h-[100vh] justify-center"}>
-
         <Head title={'Accueil'}/>
         <motion.div
           initial={{opacity: 0.0, y: 40}}
@@ -22,7 +23,7 @@ export default function Home() {
             Votez pour tout, même pour l'impossible.
           </div>
           <div className="text-lg md:text-2xl dark:text-white text-center font-thin italic">
-            Exprime toi avec Berynite
+            Exprime toi avec Berynite {auth.isAuthenticated ? ', ' + auth.user!.username : ''} !
           </div>
         </motion.div>
       </div>
