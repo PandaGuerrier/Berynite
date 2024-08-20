@@ -7,3 +7,11 @@ export const createPollValidator = vine.compile(
     status: vine.enum(['draft', 'published', 'finished']),
   })
 )
+
+export const updatePollValidator = vine.compile(
+  vine.object({
+    title: vine.string().minLength(5),
+    content: vine.string().minLength(10),
+    status: vine.enum(['draft', 'published', 'finished']),
+  })
+)

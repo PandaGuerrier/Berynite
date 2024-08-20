@@ -1,19 +1,23 @@
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import MainLayout from '~/layouts/MainLayout'
-import { AuroraBackground } from '~/components/ui/aurora-background'
 import { motion } from 'framer-motion'
-import InputPanda from '~/components/Input'
 import { Button } from '@nextui-org/react'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import { FileUpload } from '~/components/ui/file-upload'
 
-export default function Username() {
+export default function Avatar() {
   const [error, setError] = useState(null as string | null)
+  const [file, setFile] = useState(null as File | null)
 
   async function sendForm(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const form = e.currentTarget
     const formData = new FormData(form)
+
+    if (file) {
+      formData.append('avatar', file)
+    }
     const response = await fetch('/me', {
       method: 'PATCH',
       body: formData,
@@ -24,6 +28,7 @@ export default function Username() {
     })
 
     const payload = await response.json()
+    console.log(payload)
 
     if (response.ok) {
       const username = payload.username ?? 'Invité'
@@ -31,7 +36,7 @@ export default function Username() {
         position: 'bottom-right',
         duration: 5000
       })
-      window.location.href = '/me/avatar'
+     // window.location.href = '/'
     } else {
       setError(payload.errors[0].message)
     }
@@ -39,8 +44,8 @@ export default function Username() {
 
   return (
     <MainLayout>
-      <AuroraBackground>
-        <Head title={"Nom d'utilisateur"}/>
+      <div className={"flex w-full h-[100vh] justify-center"}>
+        <Head title={'Avatar'}/>
         <motion.div
           initial={{opacity: 0.0, y: 40}}
           whileInView={{opacity: 1, y: 0}}
@@ -53,23 +58,20 @@ export default function Username() {
         >
           <div className="w-full flex justify-center">
             <form onSubmit={sendForm} className={'p-3 w-full md:w-1/4'}>
-              <div className="flex flex-col gap-4 min-w-24">
-                <h1 className="text-3xl font-bold text-center">Choisissez votre nouveau nom !</h1>
-                <p className="text-center">Il vous sera utile quand vous posterez une suggestion !</p>
+              <div className="flex flex-col min-w-24 space-y-10">
                 {
-                  error && (
-                    <div className="bg-red-500 text-white p-2 rounded-md text-center">
-                      {error}
-                    </div>
-                  )
+                  error && <div className="bg-red-500 text-white p-2 rounded">{error}</div>
                 }
-                <InputPanda label={'Nom d\'utilisateur'} type={'text'} name={'username'} required className={'w-full'}/>
-                <Button type={'submit'} color={'primary'} variant={'shadow'}>Suivant</Button>
+                <FileUpload title={"Mettez votre meilleur avatar !"} description={"Mets à jour ton avatar et deviens la star de ta page !"} onChange={(file) => setFile(file)} />
+                <div className={"flex space-x-5"}>
+                  <Button as={Link} href={"/"} color={'default'} variant={'shadow'} fullWidth>Passer cette étape</Button>
+                  <Button type={"submit"} color={'primary'} variant={'shadow'} fullWidth>Suivant</Button>
+                </div>
               </div>
             </form>
           </div>
         </motion.div>
-      </AuroraBackground>
+      </div>
     </MainLayout>
   )
 }

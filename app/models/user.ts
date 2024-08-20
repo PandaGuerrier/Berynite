@@ -36,9 +36,17 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @manyToMany(() => Poll)
   declare polls: ManyToMany<typeof Poll>
 
+  @column()
+  declare asAvatar: boolean
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  public getAvatarUrl() {
+    if (this.asAvatar) return 'storage/avatars/' + this.id + '.png'
+    return `https://ui-avatars.com/api/?name=${this.username}&size=128`
+  }
 }

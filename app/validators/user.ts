@@ -8,6 +8,7 @@ export const createUserValidator = vine.compile(
     username: vine.string().minLength(5).unique(async (_, value) => {
       const user = await User.findBy('username', value)
       return !user
-    }).optional()
+    }).optional(),
+    avatar: vine.file().optional()
   })
 )

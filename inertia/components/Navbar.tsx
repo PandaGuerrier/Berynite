@@ -1,10 +1,10 @@
 import React from 'react'
 import {
-  Avatar, Button,
+  Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
-  DropdownTrigger,
+  DropdownTrigger, Image,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -78,14 +78,12 @@ export default function NavBar() {
           <>
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
-                <Avatar
-                  isBordered
-                  as="button"
-                  className="transition-transform"
-                  color="primary"
-                  title={auth.user!.email}
-                  size="sm"
-                />
+                <Image
+                  src={(auth.user?.asAvatar) ? '/storage/avatars/' + auth.user.id + '.png' : `https://ui-avatars.com/api/?name=${auth.user?.username}&size=128`}
+                  alt="avatar"
+                  width={40}
+                  height={40}
+                  className="rounded-full cursor-pointer"/>
               </DropdownTrigger>
               <DropdownMenu aria-label="Profile Actions" variant="faded">
                 <DropdownItem key="profile" className="h-14 gap-2">
