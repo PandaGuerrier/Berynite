@@ -2,6 +2,7 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { createAuthLoginValidator, createAuthRegisterValidator } from '#validators/auth'
 import User from '#models/user'
 import Role from '#models/role'
+import Username from '../../data/username.js'
 
 export default class AuthController {
   public async loginView({ inertia }: HttpContext) {
@@ -28,7 +29,11 @@ export default class AuthController {
 
   public async register({ request, response, auth }: HttpContext) {
     const data = await request.validateUsing(createAuthRegisterValidator)
-    const user = await User.create(data)
+    const username = await this.getRandomUsername()
+    const user = await User.create({
+      ...data,
+      username: username
+    })
 
     const role = await Role.query().where('slug', 'user').firstOrFail()
     await user.related('role').associate(role)
@@ -41,5 +46,16 @@ export default class AuthController {
   public async logout({ auth, response }: HttpContext) {
     await auth.use('web').logout()
     return response.redirect().toRoute('auth.login')
+  }
+
+  private async getRandomUsername(): Promise<string> {
+    const randomUsername = Username.start[Math.floor(Math.random() * Username.start.length)] + Username.end[Math.floor(Math.random() * Username.end.length)]
+    const user = await User.findBy('username', randomUsername)
+
+    if (user) {
+      return this.getRandomUsername()
+    }
+
+    return randomUsername
   }
 }

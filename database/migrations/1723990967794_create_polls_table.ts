@@ -10,7 +10,8 @@ export default class extends BaseSchema {
       table.text('content').notNullable()
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
       table.enum('status', ['finished', 'draft', 'published']).defaultTo('draft')
-      table.json('voters').notNullable().defaultTo([])
+      table.json('yes_vote').defaultTo([])
+      table.json('no_vote').defaultTo([])
 
       table.timestamp('created_at')
       table.timestamp('updated_at')

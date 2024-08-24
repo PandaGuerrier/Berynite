@@ -24,7 +24,10 @@ export default class Poll extends BaseModel {
   declare status: 'finished' | 'draft' | 'published'
 
   @column()
-  declare voters: Voter[]
+  declare yesVote: Set<Voter>
+
+  @column()
+  declare noVote: Set<Voter>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

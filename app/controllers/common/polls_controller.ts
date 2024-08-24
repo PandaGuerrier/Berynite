@@ -1,7 +1,6 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import Poll from '#models/poll'
 import { createPollValidator } from '#validators/poll'
-import { Voter } from '../../type/voter.js'
 
 export default class PollsController {
   public async index({inertia}: HttpContext) {
@@ -40,7 +39,6 @@ export default class PollsController {
     const poll = await Poll.create({
       ...data,
       userId: user.id,
-      voters: [] as Voter[],
     })
 
     await poll.related('user').associate(user)

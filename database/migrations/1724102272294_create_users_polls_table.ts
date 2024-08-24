@@ -1,7 +1,7 @@
 import { BaseSchema } from '@adonisjs/lucid/schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'users_polls'
+  protected tableName = 'poll_user'
 
   async up() {
     this.schema.createTable(this.tableName, (table) => {
