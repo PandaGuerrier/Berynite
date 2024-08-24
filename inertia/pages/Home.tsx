@@ -2,8 +2,14 @@ import { motion } from 'framer-motion'
 import { Head } from '@inertiajs/react'
 import MainLayout from '~/layouts/MainLayout'
 import useAuth from '~/hooks/use_auth'
+import Poll from '#models/poll'
+import PollComponent from '~/components/Poll'
 
-export default function Home() {
+interface Props {
+  polls: Poll[]
+}
+
+export default function Home({ polls }: Props) {
   const auth = useAuth()
   return (
     <MainLayout>
@@ -27,6 +33,13 @@ export default function Home() {
           </div>
         </motion.div>
       </div>
+      <div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+          {polls.map((poll, index) => (
+           <PollComponent poll={poll} key={index} />
+          ))}
+        </div>
+      </div>
     </MainLayout>
-)
+  )
 }

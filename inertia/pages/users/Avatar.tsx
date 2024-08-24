@@ -36,7 +36,7 @@ export default function Avatar() {
         position: 'bottom-right',
         duration: 5000
       })
-     // window.location.href = '/'
+      window.location.href = '/'
     } else {
       setError(payload.errors[0].message)
     }
